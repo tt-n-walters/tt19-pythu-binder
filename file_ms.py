@@ -36,6 +36,19 @@ class FilePath:
     def __repr__(self):
         return "/".join(self.locations)
 
+
+def requires_FilePath(fn):
+    def wrapper(*args, **kwargs):
+        for arg in args:
+            if type(arg) is FilePath:
+                break
+        else:
+            raise TypeError("Locations must be FilePaths")
+        
+        # Code reached when at least 1 arg in a FilePath
+        return fn(*args, **kwargs)
+    return wrapper
+
 '''
 D://TechTalents/Classes/Python
 folder_a = FilePath()
