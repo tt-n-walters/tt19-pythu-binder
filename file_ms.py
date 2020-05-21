@@ -63,13 +63,16 @@ class FileManager:
         self.os = platform.system()
         print("Initialised FileManager on {}".format(self.os))
 
+    @requires_FilePath
     def check_exists(self, location):
         return os.path.exists(repr(location))
 
+    @requires_FilePath
     def create_file(self, file_location):
         open(file_location, "x").close()
         return self.check_is_file(file_location)
 
+    @requires_FilePath
     def delete_file(self, file_location):
         if not self.check_is_file(file_location):
             raise FileNotFoundError
@@ -77,16 +80,20 @@ class FileManager:
             os.remove(file_location)
             return not self.check_is_file(file_location)
 
+    @requires_FilePath
     def check_is_file(self, file_location):
         return self.check_exists(file_location) and os.path.isfile(file_location)
 
+    @requires_FilePath
     def check_is_folder(self, folder_location):
         return self.check_exists(folder_location) and os.path.isdir(folder_location)
 
+    @requires_FilePath
     def create_folder(self, folder_location):
         os.mkdir(folder_location)
         return self.check_is_folder(folder_location)
 
+    @requires_FilePath
     def delete_folder(self, folder_location):
         if not self.check_is_empty(folder_location):
             raise FileNotFoundError
@@ -94,6 +101,7 @@ class FileManager:
             os.rmdir(folder_location)
             return not self.check_is_folder(folder_location)
 
+    @requires_FilePath
     def delete_folder_contents(self, folder_location):
         if not self.check_is_folder(folder_location):
             raise FileNotFoundError
@@ -114,6 +122,7 @@ class FileManager:
                 self.delete_folder(path)
         return True
 
+    @requires_FilePath
     def check_is_empty(self, folder_location):
         if not self.check_is_folder(folder_location):
             raise FileNotFoundError
@@ -129,8 +138,7 @@ if __name__ == "__main__":
     
 
     # Standard file creation/deletion
-    assert file_manager.check_exists(
-        test_file_path) == False, "File already exists you silly boy"
+    assert file_manager.check_exists(test_file_path)
     assert file_manager.create_file("test_file") == True
     assert file_manager.check_exists("test_file") == True
     assert file_manager.delete_file("test_file") == True
