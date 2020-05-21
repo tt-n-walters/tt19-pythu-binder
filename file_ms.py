@@ -29,7 +29,9 @@ class FilePath:
                 self.locations.pop()
             else:
                 raise AttributeError
-
+    
+    def __len__(self):
+        return len(self.locations)
 
 
 '''
@@ -109,6 +111,7 @@ if __name__ == "__main__":
 
     test_file_path = FilePath()
     test_file_path.add("test_file")
+    print(len(test_file_path))
 
     # Standard file creation/deletion
     assert file_manager.check_exists(
