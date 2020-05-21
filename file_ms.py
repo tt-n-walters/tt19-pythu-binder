@@ -107,9 +107,12 @@ class FileManager:
 if __name__ == "__main__":
     file_manager = FileManager()
 
+    test_file_path = FilePath()
+    test_file_path.add("test_file")
+
     # Standard file creation/deletion
     assert file_manager.check_exists(
-        "test_file") == False, "File already exists you silly boy"
+        test_file_path) == False, "File already exists you silly boy"
     assert file_manager.create_file("test_file") == True
     assert file_manager.check_exists("test_file") == True
     assert file_manager.delete_file("test_file") == True
