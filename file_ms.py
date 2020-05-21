@@ -33,6 +33,8 @@ class FilePath:
     def __len__(self):
         return len(self.locations)
 
+    def __repr__(self):
+        return "/".join(self.locations)
 
 '''
 D://TechTalents/Classes/Python
@@ -49,7 +51,7 @@ class FileManager:
         print("Initialised FileManager on {}".format(self.os))
 
     def check_exists(self, location):
-        return os.path.exists(location)
+        return os.path.exists(repr(location))
 
     def create_file(self, file_location):
         open(file_location, "x").close()
@@ -111,7 +113,7 @@ if __name__ == "__main__":
 
     test_file_path = FilePath()
     test_file_path.add("test_file")
-    print(len(test_file_path))
+    
 
     # Standard file creation/deletion
     assert file_manager.check_exists(
