@@ -3,8 +3,9 @@ import platform
 
 
 class FilePath:
-    def __init__(self):
+    def __init__(self, *locations):
         self.locations = []
+        self.add(locations)
     
     # Predicate function
     def _check(self, location):
