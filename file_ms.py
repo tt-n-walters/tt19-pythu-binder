@@ -5,7 +5,7 @@ import platform
 class FilePath:
     def __init__(self, *locations):
         self.locations = []
-        self.add(locations)
+        self.add(*locations)
     
     # Predicate function
     def _check(self, location):
@@ -36,6 +36,9 @@ class FilePath:
 
     def __fspath__(self):
         return "/".join(self.locations)
+    
+    def __add__(self, other):
+        return FilePath(self.locations + other.locations)
 
 
 def requires_FilePath(fn):
@@ -146,12 +149,14 @@ if __name__ == "__main__":
     assert file_manager.check_exists(test_file_path) == False
 
     # Standard folder create/deletion
-    assert file_manager.create_folder("test_folder") == True
-    assert file_manager.delete_folder("test_folder") == True
+    test_folder_path = FilePath("test_folder")
+    assert file_manager.create_folder(test_folder_path) == True
+    assert file_manager.delete_folder(test_folder_path) == True
 
     #
-    assert file_manager.create_folder("test_folder") == True
-    assert file_manager.create_file("test_folder/test_file") == True
+    test_file_folder_path = test_folder_path + test_file_path
+    assert file_manager.create_folder(test_folder) == True
+    assert file_manager.create_file(test_file_folder_path) == True
     assert file_manager.check_exists("test_folder/test_file") == True
     assert file_manager.check_is_empty("test_folder") == False
     assert file_manager.create_folder("test_folder/internal") == True
