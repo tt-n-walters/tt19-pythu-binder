@@ -33,7 +33,7 @@ class FilePath:
     def __len__(self):
         return len(self.locations)
 
-    def __repr__(self):
+    def __fspath__(self):
         return "/".join(self.locations)
 
 
@@ -65,7 +65,7 @@ class FileManager:
 
     @requires_FilePath
     def check_exists(self, location):
-        return os.path.exists(repr(location))
+        return os.path.exists(location)
 
     @requires_FilePath
     def create_file(self, file_location):
@@ -138,11 +138,11 @@ if __name__ == "__main__":
     
 
     # Standard file creation/deletion
-    assert file_manager.check_exists(test_file_path)
-    assert file_manager.create_file("test_file") == True
-    assert file_manager.check_exists("test_file") == True
-    assert file_manager.delete_file("test_file") == True
-    assert file_manager.check_exists("test_file") == False
+    assert file_manager.check_exists(test_file_path) == False
+    assert file_manager.create_file(test_file_path) == True
+    assert file_manager.check_exists(test_file_path) == True
+    assert file_manager.delete_file(test_file_path) == True
+    assert file_manager.check_exists(test_file_path) == False
 
     # Standard folder create/deletion
     assert file_manager.create_folder("test_folder") == True
