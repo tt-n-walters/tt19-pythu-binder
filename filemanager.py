@@ -4,6 +4,19 @@ import platform
 from filepath import requires_FilePath
 
 
+class Rule:
+    def __init__(self, files, process):
+        self.files = files
+        self.process = process
+    
+    def apply_files_rule(filepaths):
+        filtered_paths = []
+        for filepath in filepaths:
+            location = filepath.locations[-1]
+            if self.files()
+
+
+
 class FileManager:
     def __init__(self):
         self.os = platform.system()
