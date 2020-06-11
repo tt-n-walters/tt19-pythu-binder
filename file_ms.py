@@ -7,11 +7,15 @@ class Rule:
         self.files = files
         self.process = process
 
-    def apply_files_rule(filepaths):
+    def apply_files_rule(self, filepaths):
         filtered_paths = []
         for filepath in filepaths:
             if self.files(filepath.last):
                 filtered_paths.append(filepath)
+        return filtered_paths
+    
+    def apply_process(self, filepaths):
+        yield from map(self.process, filepaths)
 
 
 if __name__ == "__main__":
