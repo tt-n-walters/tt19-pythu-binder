@@ -35,6 +35,8 @@ class FilePath:
 
     def __add__(self, other):
         return FilePath(self.locations + other.locations)
+    
+    last = property(lambda self: self.locations[-1] if self.locations else None)
 
 
 def requires_FilePath(fn):
