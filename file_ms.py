@@ -1,5 +1,14 @@
+import re
+
 from filemanager import FileManager
 from filepath import FilePath
+
+
+def create_file_rule(pattern):
+    def file_rule(filepath):
+        match = re.match(pattern, filepath)
+        return bool(match)
+    return file_rule
 
 
 class Rule:
