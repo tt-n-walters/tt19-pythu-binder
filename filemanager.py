@@ -1,7 +1,7 @@
 import os
 import platform
 
-from filepath import requires_FilePath
+from filepath import requires_FilePath, FilePath
 
 
 class FileManager:
@@ -74,3 +74,13 @@ class FileManager:
             raise FileNotFoundError
         else:
             return len(os.listdir(folder_location)) == 0
+
+    @requires_FilePath
+    def get_folder_contents(self, folder_location: FilePath):
+        contents = os.listdir(folder_location)
+        files = []
+        for content in contents:
+            file_location = folder_location + content
+            if self.check_is_file(file_location):
+                files.append(file_location)
+        return files
