@@ -2,12 +2,23 @@ from filemanager import FileManager
 from filepath import FilePath
 
 
+class Rule:
+    def __init__(self, files, process):
+        self.files = files
+        self.process = process
+
+    def apply_files_rule(filepaths):
+        filtered_paths = []
+        for filepath in filepaths:
+            if self.files(filepath.last):
+                filtered_paths.append(filepath)
+
+
 if __name__ == "__main__":
     file_manager = FileManager()
 
     test_file_path = FilePath()
     test_file_path.add("test_file")
-    
 
     # Standard file creation/deletion
     assert file_manager.check_exists(test_file_path) == False
