@@ -50,3 +50,15 @@ def requires_FilePath(fn):
         # Code reached when at least 1 arg in a FilePath
         return fn(*args, **kwargs)
     return wrapper
+
+
+if __name__ == "__main__":
+    print("Executing tests.")
+    
+    filepath_empty = FilePath()
+    filepath_full = FilePath("one", "two", "three")
+
+    assert filepath_empty.last == None
+    assert filepath_full.last == "three"
+
+    print("Tests complete.")
