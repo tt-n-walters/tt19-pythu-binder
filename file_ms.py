@@ -11,6 +11,20 @@ def create_file_rule(pattern):
     return file_rule
 
 
+def create_process(filemanager: FileManager, user_choice):
+    proccesses = {
+        "delete": filemanager.delete_file,
+        "move": NotImplemented
+    }
+    if user_choice in proccesses:
+        process = proccesses[user_choice]
+        if proccess is NotImplemented:
+            exit(user_choice + " is not yet implemented.")
+        return process
+
+
+
+
 class Rule:
     def __init__(self, files, process):
         self.files = files
