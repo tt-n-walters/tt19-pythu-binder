@@ -34,7 +34,10 @@ class FilePath:
         return "/".join(self.locations)
 
     def __add__(self, other):
-        return FilePath(self.locations + other.locations)
+        if isinstance(other, FilePath):
+            return FilePath(self.locations + other.locations)
+        elif type(other) is str:
+            return FilePath(*self.locations, other)
     
     last = property(lambda self: self.locations[-1] if self.locations else None)
 
