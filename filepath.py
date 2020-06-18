@@ -1,4 +1,8 @@
 class FilePath:
+    @classmethod
+    def from_string(cls, string):
+        return cls(string.split("/"))
+
     def __init__(self, *locations):
         self.locations = []
         self.add(*locations)
