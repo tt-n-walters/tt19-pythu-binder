@@ -85,7 +85,7 @@ class FileManager:
             if self.check_is_file(file_location):
                 files.append(file_location)
         return files
-    
+
     @requires_FilePath
     def check_exists_recursive(self, filepath_tree):
         filepath = FilePath()
@@ -95,12 +95,11 @@ class FileManager:
                 return filepath
         return True
 
-    
     @requires_FilePath
     def move_file(self, origin, destination):
         if not self.check_is_file(origin):
             raise FileNotFoundError(origin)
-        
+
         # if isinstance(filepath := self.check_exists_recursive(destination), FilePath):
         #     raise ValueError(filepath + " does not exist.")
 
@@ -112,11 +111,8 @@ class FileManager:
         destination.add(origin.last)
         if self.check_is_file(destination):
             raise Exception(destination + " already exists.")
-        
-        os.rename(origin, destination)
-        
 
-        
+        os.rename(origin, destination)
 
     @requires_FilePath
     def copy_file(self, master, destination):
@@ -131,5 +127,5 @@ class FileManager:
         destination.add(master.last)
         if self.check_is_file(destination):
             raise Exception(destination + " already exists.")
-        
+
         shutil.copyfile(master, destination)
