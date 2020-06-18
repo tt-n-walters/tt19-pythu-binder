@@ -1,4 +1,5 @@
 import os
+import shutil
 import platform
 
 from filepath import requires_FilePath, FilePath
@@ -119,4 +120,16 @@ class FileManager:
 
     @requires_FilePath
     def copy_file(self, master, destination):
-        pass
+        if not self.check_is_file(master):
+            raise FileNotFoundError(master)
+
+        filepath = self.check_exists_recursive(destination)
+        if isinstance(filepath, FilePath):
+            raise ValueError(filepath + " does not exist.")
+
+        # Add the masters filename to the testing filepath
+        destination.add(master.last)
+        if self.check_is_file(destination):
+            raise Exception(destination + " already exists.")
+        
+        shutil.copyfile(master, destination)
