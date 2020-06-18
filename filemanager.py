@@ -84,3 +84,28 @@ class FileManager:
             if self.check_is_file(file_location):
                 files.append(file_location)
         return files
+    
+    @requires_FilePath
+    def move_file(self, origin, destination):
+        if not self.check_is_file(origin):
+            raise FileNotFoundError(origin)
+        
+        filepath = FilePath()
+        for location in destination.locations:
+            filepath.add(location)
+            if not self.check_is_folder(filepath):
+                raise ValueError(filepath + " does not exist.")
+        
+        # Add the origins filename to the testing filepath
+        filepath.add(origin.last)
+        if self.check_is_file(filepath):
+            raise Exception(filepath + " already exists.")
+        
+        os.rename(origin, filepath)
+        
+
+        
+
+    @requires_FilePath
+    def copy_file(self, master, destination):
+        pass
