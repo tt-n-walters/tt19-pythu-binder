@@ -85,13 +85,13 @@ class FileManager:
                 files.append(file_location)
         return files
     
-    @requires_FilePath(self, origin, destination)
+    @requires_FilePath
     def check_exists_recursive(self, filepath_tree):
         filepath = FilePath()
-        for location in destination.locations:
+        for location in filepath_tree.locations:
             filepath.add(location)
             if not self.check_is_folder(filepath):
-                return False
+                return filepath
         return True
 
     
@@ -100,7 +100,11 @@ class FileManager:
         if not self.check_is_file(origin):
             raise FileNotFoundError(origin)
         
-        if not self.check_exists_recursive(destination):
+        # if isinstance(filepath := self.check_exists_recursive(destination), FilePath):
+        #     raise ValueError(filepath + " does not exist.")
+
+        filepath = self.check_exists_recursive(destination)
+        if isinstance(filepath, FilePath):
             raise ValueError(filepath + " does not exist.")
 
         # Add the origins filename to the testing filepath
